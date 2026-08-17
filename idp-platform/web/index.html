@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parsa.ai — Intelligent Document Parser &amp; Workspace</title>
+  <meta name="description" content="Secure, Accurate, Cost-Efficient, Trusted Data from Any Document powered by Unlimited-OCR 3B-MoE VLM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3.5">
+</head>
+<body>
+
+  <!-- Top Sticky Nav Bar (Monochrome White Canvas) -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand-logo" id="btnHomeBrand" data-target="homeView">
+        <div class="logo-symbol">
+          <div class="logo-dot" style="background: #8b5cf6;"></div>
+          <div class="logo-dot" style="background: #06b6d4;"></div>
+          <div class="logo-dot" style="background: #10b981;"></div>
+          <div class="logo-dot" style="background: #f4f4f5;"></div>
+        </div>
+        <span class="brand-title">Parsa.ai</span>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-link active" data-target="homeView">Overview</button>
+        <button class="nav-link" data-target="playgroundView">AI Studio</button>
+        <a href="/api-keys" class="nav-link" style="text-decoration: none; display: inline-flex; align-items: center;">API Keys</a>
+        <button class="nav-link" data-target="benchmarksView">Benchmarks</button>
+        <button class="nav-link" data-target="architectureView">Architecture</button>
+        <button class="nav-link" data-target="pricingView">Pricing</button>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/api-keys" class="nav-api-key-pill" id="btnTopNavApiKey" title="Active LLM API Key & Escalation Engine (Press ⌥K)" style="text-decoration: none;">
+          <span class="key-status-dot" id="navKeyStatusDot"></span>
+          <span id="navActiveKeyText">✨ Gemini 2.0</span>
+          <span class="key-caret">▾</span>
+        </a>
+        <button class="btn btn-secondary" data-target="playgroundView">Contact sales</button>
+        <button class="btn btn-primary" id="btnBookDemo">Get started for free</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Black Marquee Ribbon under Nav -->
+  <div class="marquee-strip">
+    <span>// UNLIMITED-OCR 3B-MOE VLM</span>
+    <span>•</span>
+    <span>SGLANG RADIXATTENTION INFERENCE</span>
+    <span>•</span>
+    <span>9-STAGE PIPELINE</span>
+    <span>•</span>
+    <span>AUTO-APPROVE TRUSTSCORE 94.2%</span>
+  </div>
+
+  <!-- Page Layout Container -->
+  <main class="app-main">
+    
+    <!-- VIEW 1: HOME / OVERVIEW -->
+    <section id="homeView" class="view-section active">
+      
+      <!-- HERO SECTION -->
+      <div class="hero-wrapper">
+        <div class="hero-grid">
+          <div>
+            <!-- Lilac Promo Banner -->
+            <div class="promo-banner-lilac">
+              <span>✨ <strong>New Benchmark:</strong> Unlimited-OCR 3B-MoE VLM — 100% Win Rate</span>
+              <button class="btn btn-magenta-promo" data-target="playgroundView">Try AI Studio →</button>
+            </div>
+
+            <h1 class="display-xl hero-title">
+              Convert messy documents into AI-ready grounded JSON.
+            </h1>
+            <p class="body-lg" style="margin-top: 18px; margin-bottom: 28px; max-width: 600px; color: var(--colors-ink);">
+              Extract text, complex multi-column tables, checkboxes, and structured data from PDFs, scans, and images. Powered by Unlimited-OCR 3B-MoE VLM and a 3-layer cost-efficient pipeline.
+            </p>
+
+            <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-primary" data-target="playgroundView">Launch AI Studio</button>
+              <button class="btn btn-secondary" data-target="apiKeysView">Configure API Keys</button>
+              <button class="btn btn-secondary" data-target="architectureView">Explore Architecture</button>
+            </div>
+          </div>
+
+          <!-- Hero Illustration Card with Interactive Stats -->
+          <div class="feature-illustration-tile" style="background-color: var(--colors-block-cream); border-color: var(--colors-hairline);">
+            <div class="ui-eyebrow" style="margin-bottom: 8px;">// PLATFORM PERFORMANCE &amp; ACCURACY</div>
+            <div class="headline" style="margin-bottom: 12px;">Zero Per-Call API Tax</div>
+            <p class="body" style="font-size: 15px; margin-bottom: 20px; color: #444444;">
+              Deploy fixed GPU clusters powered by SGLang RadixAttention prefix caching and rolling window inference.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="stat-tile" style="background-color: #ffffff;">
+                <div class="stat-value" style="color: var(--colors-semantic-success);">100%</div>
+                <div class="stat-label">Datatype Win Rate</div>
+              </div>
+              <div class="stat-tile" style="background-color: #ffffff;">
+                <div class="stat-value">142ms</div>
+                <div class="stat-label">Avg Page Latency</div>
+              </div>
+              <div class="stat-tile" style="background-color: #ffffff;">
+                <div class="stat-value">94.2%</div>
+                <div class="stat-label">Straight-Through Rate</div>
+              </div>
+              <div class="stat-tile" style="background-color: #ffffff;">
+                <div class="stat-value">$0.00</div>
+                <div class="stat-label">Per-Call API Cost</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE CODE & RESULT SHOWCASE (Developer-First API Showcase) -->
+      <div class="code-showcase-section">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+          <div>
+            <div class="ui-eyebrow" style="color: var(--colors-accent-magenta);">// DEVELOPER INTEGRATION</div>
+            <h2 class="display-lg" style="font-size: 38px; margin-top: 4px;">Parse &amp; extract in 3 lines of code.</h2>
+          </div>
+          <div class="segmented-control-pill">
+            <button class="seg-pill-btn active" id="btnCodeCurl">cURL</button>
+            <button class="seg-pill-btn" id="btnCodePython">Python</button>
+            <button class="seg-pill-btn" id="btnCodeNode">Node.js</button>
+          </div>
+        </div>
+
+        <div class="code-showcase-grid">
+          <!-- Code Editor Block -->
+          <div class="code-editor-block">
+            <div class="code-editor-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span style="margin-left: 10px; font-family: var(--font-mono); font-size: 12px; color: #888;">extract_document.sh</span>
+            </div>
+            <pre><code id="homeCodeBlock" class="home-code-content">curl -X POST https://api.parsa.ai/v1/documents/upload \
+  -H "X-API-Key: your_api_key" \
+  -H "X-LLM-Provider: openai" \
+  -H "X-LLM-Model: gpt-4o" \
+  -F "file=@patient_intake_scan.pdf"</code></pre>
+          </div>
+
+          <!-- Structured Output Preview Block -->
+          <div class="code-editor-block">
+            <div class="code-editor-header" style="justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span class="code-dot green"></span>
+                <span style="margin-left: 10px; font-family: var(--font-mono); font-size: 12px; color: #888;">response_grounded_output.json</span>
+              </div>
+              <span class="trust-badge badge-high">98.4% TRUST SCORE</span>
+            </div>
+            <pre><code class="home-code-content">{
+  "doc_id": "doc_9941a802",
+  "status": "AUTO_APPROVED",
+  "grounded_fields": {
+    "Patient Name": { "value": "Alvarez, Ruben M", "conf": 0.99, "bbox": [30, 110, 540, 160], "page": 1 },
+    "Primary Carrier": { "value": "BluePeak Assurance", "conf": 0.98, "layer": "Layer 2 (ML Model)" },
+    "Total Due": { "value": "$3,518.13", "conf": 0.99, "math_verified": true }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY FEATURES GRID -->
+      <div class="color-block-section" style="margin-top: 48px;">
+        <div class="ui-eyebrow" style="margin-bottom: 12px;">// CORE PLATFORM CAPABILITIES</div>
+        <h2 class="display-lg" style="margin-bottom: 16px;">Everything you need for document intelligence.</h2>
+        <p class="subhead" style="margin-bottom: 32px; max-width: 720px;">
+          Built for high-volume enterprise pipelines requiring high accuracy, zero arithmetic hallucinations, and grounded source citations.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 01</div>
+            <h3>Omni-Format Layout Parser</h3>
+            <p>Preserves multi-column reading order, paragraph blocks, headings, and images across PDFs, scans, and images.</p>
+          </div>
+
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 02</div>
+            <h3>Cell-Grid Table Extraction</h3>
+            <p>Extracts complex nested tables, merged cells, and headers rendered directly in Cell Grid, Markdown, or JSON.</p>
+          </div>
+
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 03</div>
+            <h3>Grounded Source Citations</h3>
+            <p>Every extracted field carries bounding box pixel coordinates, page numbers, confidence scores, and layer tags.</p>
+          </div>
+
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 04</div>
+            <h3>3-Layer Cost Optimization</h3>
+            <p>Layer 1 Rules → Layer 2 Small Model → Layer 3 LLM Escalation. Eliminates up to 90% of expensive LLM API bills.</p>
+          </div>
+
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 05</div>
+            <h3>Math &amp; Fraud Verification</h3>
+            <p>Stage 7 arithmetic checks verify that $Subtotal + Tax = Total$ before approving, eliminating financial hallucinations.</p>
+          </div>
+
+          <div class="feature-illustration-tile" style="background-color: #ffffff;">
+            <div class="ui-eyebrow">CAPABILITY 06</div>
+            <h3>Self-Hosted &amp; Private Cloud</h3>
+            <p>Deploy inside your private Kubernetes or VPC cluster with Docker manifests and zero external data egress.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE ROI / COST SAVINGS CALCULATOR -->
+      <div class="color-block-section-lilac" style="margin-top: 48px;">
+        <div class="ui-eyebrow" style="margin-bottom: 12px;">// INFRASTRUCTURE COST CALCULATOR</div>
+        <h2 class="display-lg" style="margin-bottom: 16px;">See how much you save vs. SaaS AI APIs.</h2>
+        <p class="subhead" style="margin-bottom: 28px; max-width: 720px;">
+          SaaS document platforms charge $4.00 per 1,000 pages for extraction. Our fixed GPU cluster model charges $0 per call.
+        </p>
+
+        <div style="background-color: #ffffff; border-radius: var(--rounded-md); padding: 24px; border: 1px solid var(--colors-hairline);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <label style="font-weight: 600; font-size: 16px;">Monthly Document Volume (Pages)</label>
+            <span id="roiPageVolumeVal" class="config-badge" style="font-size: 14px;">100,000 Pages / mo</span>
+          </div>
+          <input type="range" id="roiVolumeSlider" min="10000" max="1000000" step="10000" value="100000" class="config-range" style="margin-bottom: 24px;">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div class="stat-tile" style="background-color: #F7F7F5;">
+              <div class="stat-label">SaaS AI Competitor Cost</div>
+              <div class="stat-value" id="roiSaasCost" style="color: #d9534f; margin-top: 4px;">$400 / mo</div>
+            </div>
+            <div class="stat-tile" style="background-color: #F7F7F5;">
+              <div class="stat-label">Our Fixed GPU Infrastructure</div>
+              <div class="stat-value" id="roiOurCost" style="color: var(--colors-semantic-success); margin-top: 4px;">$50 / mo</div>
+            </div>
+            <div class="stat-tile" style="background-color: var(--colors-block-lime);">
+              <div class="stat-label">Your Annual Savings</div>
+              <div class="stat-value" id="roiAnnualSavings" style="color: #000000; margin-top: 4px;">$4,200 / yr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ SECTION -->
+      <div style="margin-top: 48px; margin-bottom: 48px;">
+        <div class="ui-eyebrow" style="color: var(--colors-accent-magenta); margin-bottom: 8px;">// FREQUENTLY ASKED QUESTIONS</div>
+        <h2 class="display-lg" style="margin-bottom: 24px;">Common Questions</h2>
+
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">How does the 3-Layer Extraction strategy save up to 90% on LLM costs?</div>
+            <div class="faq-answer">
+              Instead of sending every document directly to an expensive LLM, our pipeline first attempts Layer 1 (regex &amp; anchor template rules) and Layer 2 (lightweight NER models). Over 94% of standard forms are processed cleanly in Layers 1 &amp; 2 at zero LLM cost, escalating to Layer 3 LLMs only when confidence drops below your configured threshold.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Can I use my own custom LLM API keys (OpenAI, Anthropic, Gemini, Ollama)?</div>
+            <div class="faq-answer">
+              Yes! You can configure your custom keys directly on our <a href="#" data-target="apiKeysView">API Keys Page</a>. You can choose OpenAI (GPT-4o), Anthropic (Claude 3.5 Sonnet), Google Gemini, or local self-hosted Ollama / vLLM endpoints.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">What file formats are supported?</div>
+            <div class="faq-answer">
+              Our platform supports PDF, PNG, JPEG, TIFF, BMP, WebP, ZIP archives, and email MIME documents. Scanned PDFs and images are processed using Unlimited-OCR VLM, while native digital PDFs bypass OCR for maximum speed.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Can I deploy the platform on my own private cloud / GPU servers?</div>
+            <div class="faq-answer">
+              Yes. We provide complete Docker Compose and Kubernetes Helm manifests to deploy the entire 9-stage IDP pipeline inside your private AWS, GCP, Azure, or on-prem GPU cluster with zero external data egress.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM CTA BANNER -->
+      <div class="color-block-section-mint" style="margin-top: 48px; padding: 40px; text-align: center; border-radius: var(--rounded-lg);">
+        <div class="ui-eyebrow" style="margin-bottom: 8px;">// GET STARTED IN SECONDS</div>
+        <h2 class="display-lg" style="margin-bottom: 14px;">Ready to extract trusted document data?</h2>
+        <p class="subhead" style="margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Upload sample documents in our Workspace or configure custom API keys to start processing right now.
+        </p>
+        <div style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <button class="btn btn-primary" data-target="playgroundView">Launch AI Studio</button>
+          <button class="btn btn-secondary" id="btnHomeBookDemo">Book Enterprise Demo</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: PLAYGROUND / WORKSPACE STUDIO -->
+    <section id="playgroundView" class="view-section playground-section">
+      
+      <!-- Studio Command Bar (Topbar) -->
+      <div class="workspace-topbar">
+        <div class="doc-breadcrumb-group">
+          <span class="doc-status-badge">
+            <span class="live-pulse-dot"></span>
+            <span id="docStatusText">ACTIVE</span>
+          </span>
+          <span class="doc-name-title" id="currentDocNameTitle">Cedar Park Patient Intake Form</span>
+          <span class="doc-meta-badge" id="docMetaDetails">Page 1 of 2 • 1024×1448 px • PDF</span>
+        </div>
+
+        <!-- Live Model & Telemetry Pill (Interactive) -->
+        <div class="model-telemetry-pill interactive" id="btnWsTelemetryPill" title="Click to view or change active model provider & API key">
+          <span style="color: #a78bfa;">⚡ Unlimited-OCR 3B</span>
+          <span class="telemetry-sep">•</span>
+          <span class="ws-key-pill" id="wsActiveProviderBadge">✨ Gemini 2.0 Flash</span>
+          <span class="telemetry-sep">•</span>
+          <span class="telemetry-tag-free">$0.00 / CALL</span>
+        </div>
+
+        <!-- 4-Way Mode Selector -->
+        <div class="mode-segmented-bar">
+          <button class="mode-tab-btn active" id="btnModeParse" title="Line-by-line bounding boxes & layout (Press 1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+            <span>Parse</span>
+            <span class="mode-hotkey-badge">1</span>
+          </button>
+          <button class="mode-tab-btn" id="btnModeExtract" title="Grounded structured entities & schema (Press 2)">
+            <span style="font-family: var(--font-mono); font-weight: 700; font-size: 11.5px;">{ }</span>
+            <span>Extract</span>
+            <span class="mode-hotkey-badge">2</span>
+          </button>
+          <button class="mode-tab-btn" id="btnModeTable" title="Table matrix spreadsheet data grid (Press 3)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            <span>Table Grid</span>
+            <span class="mode-hotkey-badge">3</span>
+          </button>
+          <button class="mode-tab-btn" id="btnModeJson" title="Raw syntax-highlighted JSON (Press 4)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>JSON</span>
+            <span class="mode-hotkey-badge">4</span>
+          </button>
+        </div>
+
+        <!-- Quick Actions Group -->
+        <div class="workspace-actions-group">
+          <button type="button" class="btn-ghost-action" id="btnTopApiKey" title="AI Model &amp; API Key Configuration (Press ⌥K)" style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(139, 92, 246, 0.35); background: rgba(139, 92, 246, 0.12); color: #c4b5fd;">
+            <span style="font-size: 13px;">🔑</span>
+            <span style="font-size: 12px; font-weight: 600;">AI Keys</span>
+          </button>
+          <button class="btn-run-primary" id="btnTopRunPipeline" title="Execute full 9-stage extraction pipeline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Run Pipeline</span>
+            <span class="run-shortcut-key">⌘↵</span>
+          </button>
+          <button class="btn-ghost-action" id="btnShortcutsHelp" title="Keyboard Shortcuts (?)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Multi-Document Shelf & Upload Strip -->
+      <div class="doc-shelf-strip">
+        <span class="doc-shelf-label">Document Queue:</span>
+        <div class="preset-chip-list">
+          <button class="preset-chip active" data-preset="intake">📄 Patient Intake Form</button>
+          <button class="preset-chip" data-preset="medicare">📋 Medicare ABN Notice</button>
+          <button class="preset-chip" data-preset="invoice">🧾 Enterprise Invoice</button>
+          <button class="preset-chip" data-preset="handwritten">💊 Rx Prescription</button>
+          <button class="preset-chip" data-preset="w2tax">📑 W-2 Wage &amp; Tax</button>
+          <button class="preset-chip" id="btnToggleWsContext" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.25);">⚡ Workspace Context</button>
+        </div>
+
+        <div class="shelf-upload-group">
+          <label class="btn-shelf-upload" title="Upload any PDF or image">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Upload File</span>
+            <input type="file" id="fileInput" accept="*/*" multiple hidden>
+          </label>
+          <label class="btn-shelf-upload" title="Upload entire directory">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span>Batch Folder</span>
+            <input type="file" id="folderInput" webkitdirectory directory hidden>
+          </label>
+          <input type="text" id="urlInput" class="shelf-url-input" value="https://cdn.extract.page/demo/v1/patient-intake.pdf" placeholder="Paste Document URL...">
+        </div>
+      </div>
+
+      <!-- Playground Main Split Layout -->
+      <div class="playground-layout">
+        
+        <!-- LEFT COLUMN: Advanced Document Canvas & Viewport -->
+        <div class="pg-left-pane">
+          
+          <!-- Canvas Top Toolbar -->
+          <div class="viewer-top-bar">
+            <!-- Page Nav -->
+            <div class="canvas-controls-cluster">
+              <button class="btn-canvas-tool" id="btnPrevPage" title="Previous Page">◀</button>
+              <span id="pageIndicator" class="doc-meta-badge">1 / 1</span>
+              <button class="btn-canvas-tool" id="btnNextPage" title="Next Page">▶</button>
+            </div>
+
+            <!-- Zoom & Pan Controls -->
+            <div class="canvas-controls-cluster">
+              <button class="btn-canvas-tool" id="btnZoomOut" title="Zoom Out">-</button>
+              <span id="zoomLevel" class="doc-meta-badge">100%</span>
+              <button class="btn-canvas-tool" id="btnZoomIn" title="Zoom In">+</button>
+              <button class="btn-canvas-tool" id="btnResetZoom" title="Reset Zoom (100%)">⟲</button>
+              <button class="btn-canvas-tool" id="btnFitWidth" title="Fit to Width">↔</button>
+            </div>
+
+            <!-- Layer & Overlay Toggles -->
+            <div class="canvas-toggles-cluster">
+              <button class="toggle-chip active" id="btnToggleBboxes" title="Toggle Bounding Boxes">
+                <span>▢ Bboxes</span>
+              </button>
+              <button class="toggle-chip" id="btnToggleInvert" title="Invert Colors (Dark/Light Document Mode)">
+                <span>◑ Invert</span>
+              </button>
+              <button class="btn-canvas-tool" id="btnDownloadImage" title="Download Rendered Document">⬇</button>
+            </div>
+          </div>
+
+          <!-- Document Canvas Viewport -->
+          <div class="doc-viewport" id="docViewport">
+            <!-- Drag & Drop Overlay -->
+            <div class="canvas-dropzone-overlay" id="canvasDropzone">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <div style="font-size: 15px; font-weight: 600; color: #ffffff;">Drop document here to parse</div>
+              <div style="font-size: 12px; color: var(--text-muted);">PDF, Scanned TIFF, PNG, JPG, or Documents</div>
+            </div>
+
+            <div class="doc-wrapper" id="docWrapper">
+              <img id="docImage" src="" alt="Document Preview">
+              <svg id="bboxOverlay" class="bbox-overlay"></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Document Intelligence & Extraction Studio -->
+        <div class="pg-right-pane">
+          
+          <!-- Tab Navigation Header -->
+          <div class="panel-tabs-header">
+            <div class="tabs-list">
+              <button class="tab-btn active" data-tab="tabResults">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Results &amp; Extraction</span>
+                <span class="tab-badge" id="chunksCountBadge">5</span>
+              </button>
+              <button class="tab-btn" data-tab="tabSchema">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                <span>Schema Studio</span>
+              </button>
+              <button class="tab-btn" data-tab="tabPipeline">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                <span>9-Stage Pipeline DAG</span>
+                <span class="tab-badge" id="pipelineLatencyBadge">142ms</span>
+              </button>
+              <button class="tab-btn" data-tab="tabConfig" id="btnTabConfig" title="Configure AI API keys, escalation models &amp; engine settings">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                <span>AI Keys &amp; Config</span>
+              </button>
+            </div>
+
+            <!-- Export & Action Buttons -->
+            <div class="panel-actions">
+              <button class="btn-ghost-action" id="btnCopyResult" title="Copy Output to Clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <button class="btn-ghost-action" id="btnDownloadResult" title="Download Output JSON">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 1: RESULTS & EXTRACTION -->
+          <div id="tabResults" class="tab-content active">
+            
+            <!-- Telemetry & Trust HUD Scorecard -->
+            <div class="studio-hud-scorecard">
+              <div class="hud-tile">
+                <span class="hud-tile-label">Trust Score</span>
+                <span class="hud-tile-val">
+                  <span class="trust-badge badge-high" id="trustScoreVal">98.4%</span>
+                </span>
+              </div>
+              <div class="hud-tile">
+                <span class="hud-tile-label">Decision</span>
+                <span class="hud-tile-val">
+                  <span class="trust-badge badge-approve" id="decisionVal">AUTO_APPROVED</span>
+                </span>
+              </div>
+              <div class="hud-tile">
+                <span class="hud-tile-label">Routing Engine</span>
+                <span class="hud-tile-val" style="font-size: 11.5px; font-family: var(--font-mono);" id="engineUsedVal">Unlimited-OCR (gundam)</span>
+              </div>
+              <div class="hud-tile">
+                <span class="hud-tile-label">Latency / Cost</span>
+                <span class="hud-tile-val" style="font-size: 11.5px; font-family: var(--font-mono); color: var(--accent-emerald);" id="latencyCostVal">142ms • $0.00</span>
+              </div>
+            </div>
+
+            <!-- Instant Search & Category Filter Bar -->
+            <div class="search-filter-bar">
+              <div class="search-input-wrapper">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="searchChunksInput" class="search-input-field" placeholder="Search layout chunks, structured keys, or values... (Press / to search)">
+                <span class="search-shortcut-tag">/</span>
+              </div>
+
+              <div class="category-filter-pills">
+                <button class="cat-filter-pill active" data-cat="all">All (All)</button>
+                <button class="cat-filter-pill" data-cat="header">Headers</button>
+                <button class="cat-filter-pill" data-cat="patient_info">Entities</button>
+                <button class="cat-filter-pill" data-cat="insurance">Insurance</button>
+                <button class="cat-filter-pill" data-cat="table">Tables</button>
+                <button class="cat-filter-pill" data-cat="medical_history">Medical</button>
+              </div>
+            </div>
+
+            <!-- Formatted Output Chunks View (Mode 1 & 2) -->
+            <div id="formattedChunksView" class="chunks-container">
+              <!-- Rendered dynamically via app.js -->
+            </div>
+
+            <!-- Table Matrix Data Grid View (Mode 3) -->
+            <div id="tableMatrixView" class="table-matrix-container hidden">
+              <div class="table-matrix-toolbar">
+                <div style="font-size: 12.5px; font-weight: 600; color: var(--text-primary);">Extracted Tabular Line Items</div>
+                <button class="btn-action-outline" id="btnExportCsv">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Export CSV</span>
+                </button>
+              </div>
+              <div id="tableMatrixContent">
+                <!-- Rendered dynamically via app.js -->
+              </div>
+            </div>
+
+            <!-- JSON Output View (Mode 4) -->
+            <div id="jsonOutputView" class="json-container hidden">
+              <pre><code id="jsonCodeBlock"></code></pre>
+            </div>
+
+            <!-- Floating Action Bar -->
+            <div class="floating-action-bar">
+              <div class="left-status">
+                <span>Straight-Through Processing: </span>
+                <strong style="color: var(--accent-emerald);">94.2% Auto-Approved</strong>
+              </div>
+              <button class="btn-run-primary" id="btnRunPipeline">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Run Pipeline Engine</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- TAB 2: SCHEMA STUDIO BUILDER -->
+          <div id="tabSchema" class="tab-content">
+            <div class="schema-studio-container">
+              <div class="schema-builder-header">
+                <div>
+                  <span class="schema-section-title">Visual Schema Studio</span>
+                  <p class="schema-section-desc">Design structured extraction schemas with automatic VLM citation grounding.</p>
+                </div>
+                <div class="segmented-control-pill">
+                  <button class="seg-pill-btn active" id="btnSchemaBuilderMode">Builder</button>
+                  <button class="seg-pill-btn" id="btnSchemaJsonMode">JSON Schema</button>
+                </div>
+              </div>
+
+              <!-- Builder Container -->
+              <div id="schemaBuilderModeContainer">
+                <div class="schema-mode-toolbar" style="margin-bottom: 12px;">
+                  <div class="pill-segmented">
+                    <button class="sub-pill-btn active" id="btnSchemaAutoDesign">✨ Auto-Design Schema</button>
+                    <button class="sub-pill-btn" id="btnSchemaCustomFields">Custom Fields</button>
+                  </div>
+
+                  <div class="schema-actions">
+                    <label class="btn-action-outline">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      <span>Upload JSON</span>
+                      <input type="file" id="schemaFileInput" accept=".json" hidden>
+                    </label>
+                    <button class="btn-action-outline" id="btnPasteSchemaJson">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                      <span>Paste JSON</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Pre-built Schema Templates -->
+                <div id="schemaAutoDesignDesc">
+                  <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px;">Pre-built Industry Schema Templates:</div>
+                  <div class="schema-templates-grid">
+                    <div class="schema-template-card" data-template="intake">
+                      <div class="schema-template-title">🏥 Patient Intake Form</div>
+                      <div class="schema-template-fields">Patient Name, DOB, Insurance, Medications</div>
+                    </div>
+                    <div class="schema-template-card" data-template="invoice">
+                      <div class="schema-template-title">🧾 Commercial Invoice</div>
+                      <div class="schema-template-fields">Invoice #, Vendor, Line Items, Tax, Total</div>
+                    </div>
+                    <div class="schema-template-card" data-template="rx">
+                      <div class="schema-template-title">💊 Rx Prescription</div>
+                      <div class="schema-template-fields">Drug Name, Dosage, Frequency, Prescriber</div>
+                    </div>
+                    <div class="schema-template-card" data-template="w2">
+                      <div class="schema-template-title">📑 W-2 Tax Form</div>
+                      <div class="schema-template-fields">SSN, Wages, Federal Tax, Employer EIN</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Custom Fields List -->
+                <div id="schemaCustomFieldsContainer" class="hidden" style="margin-top: 14px;">
+                  <div id="schemaFieldsList" class="schema-fields-list">
+                    <!-- Dynamically rendered via app.js -->
+                  </div>
+                  <button class="btn-action-outline" id="btnAddSchemaField" style="width: 100%; margin-top: 10px; justify-content: center; padding: 8px;">
+                    <span>+ Add Schema Field</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- JSON Schema Editor View -->
+              <div id="schemaJsonModeContainer" class="hidden">
+                <textarea id="rawSchemaJsonTextarea" class="schema-json-textarea" spellcheck="false" placeholder='{\n  "type": "object",\n  "properties": {\n    "Invoice Number": { "type": "string" },\n    "Total Due": { "type": "currency" }\n  }\n}'></textarea>
+              </div>
+
+              <!-- Action Bar -->
+              <div style="margin-top: auto; padding-top: 14px;">
+                <button class="btn-run-primary" id="btnRunConfig" style="width: 100%; justify-content: center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Apply Schema &amp; Run Extraction</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: 9-STAGE PIPELINE DAG VISUALIZER -->
+          <div id="tabPipeline" class="tab-content">
+            <div class="pipeline-dag-container">
+              <div class="dag-header-summary">
+                <div>Execution Status: <span style="color: var(--accent-emerald); font-weight: 700;">ALL STAGES READY</span></div>
+                <div>Engine: <span style="color: #c4b5fd;">Unlimited-OCR 3B-MoE</span></div>
+              </div>
+
+              <div id="pipelineStepper" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Rendered dynamically via app.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: ENGINE CONFIGURATION -->
+          <div id="tabConfig" class="tab-content">
+            <div class="config-container">
+              
+              <!-- Integrated LLM Escalation & Credentials Card -->
+              <div class="config-llm-panel">
+                <div class="config-llm-header">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="config-llm-icon" id="sidebarLlmIcon">✨</span>
+                    <div>
+                      <div class="config-section-title">AI Model &amp; API Key Configuration</div>
+                      <div class="config-section-sub">Use your custom LLM API keys directly in AI Studio for grounded parsing &amp; extraction</div>
+                    </div>
+                  </div>
+                  <span class="trust-badge badge-approve" id="sidebarLlmBadge">Connected ✓</span>
+                </div>
+
+                <div class="config-llm-body">
+                  <div class="config-row">
+                    <label class="config-row-label">Model Provider</label>
+                    <select id="cfgSidebarProvider" class="config-select">
+                      <option value="gemini" selected>Google Gemini</option>
+                      <option value="openai">OpenAI</option>
+                      <option value="anthropic">Anthropic Claude</option>
+                      <option value="groq">Groq LPU</option>
+                      <option value="ollama">Local Ollama / vLLM</option>
+                      <option value="tenant">Platform Gateway</option>
+                    </select>
+                  </div>
+
+                  <div class="config-row">
+                    <label class="config-row-label">Escalation Model</label>
+                    <select id="cfgSidebarModel" class="config-select" style="font-family: var(--font-mono); font-size: 11px;">
+                    </select>
+                  </div>
+
+                  <div class="config-key-row">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                      <label class="config-row-label" id="cfgSidebarKeyLabel">Gemini API Key</label>
+                      <button type="button" class="btn-text-action" id="btnSidebarInsertSample">⚡ Sample Key</button>
+                    </div>
+                    <div class="config-input-with-actions">
+                      <input type="password" id="cfgSidebarApiKey" class="text-input config-key-input" placeholder="Enter API key..." value="AIzaSy-demo-gemini-key-2026">
+                      <button type="button" class="btn-action-outline btn-compact" id="btnToggleSidebarKey">Show</button>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; gap: 8px; margin-top: 6px;">
+                    <button type="button" class="btn-action-outline btn-compact" id="btnTestSidebarKey" style="flex: 1; justify-content: center; font-weight: 600;">
+                      <span>🧪 Test Connection</span>
+                    </button>
+                    <button type="button" class="btn-action-outline btn-compact" data-target="apiKeysView" style="justify-content: center;" title="Open full API Keys Studio">
+                      <span>Studio ↗</span>
+                    </button>
+                  </div>
+
+                  <div class="sidebar-key-status-msg" id="sidebarKeyStatusMsg">
+                    🔒 Credentials encrypted client-side in localStorage &amp; sent directly over TLS 1.3.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span class="config-section-title">Inference &amp; Escalation Strategy</span>
+                <div class="config-options-grid">
+                  
+                  <div class="config-row">
+                    <label for="cfgImageMode" class="config-row-label">OCR / VLM Engine Mode</label>
+                    <select id="cfgImageMode" class="config-select">
+                      <option value="gundam" selected>gundam (1024x640 Dynamic Crop)</option>
+                      <option value="base">base (1024 Window)</option>
+                    </select>
+                  </div>
+
+                  <div class="config-row">
+                    <label for="cfgEscalation" class="config-row-label">3-Layer Escalation Strategy</label>
+                    <select id="cfgEscalation" class="config-select">
+                      <option value="auto" selected>Auto (L1 Rules → L2 ML → L3 Gemini)</option>
+                      <option value="rules_only">Layer 1 Rules Only (Deterministic)</option>
+                      <option value="llm_always">Force Layer 3 LLM Escalation</option>
+                    </select>
+                  </div>
+
+                  <div class="config-row-full">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                      <label for="cfgConfidence" class="config-row-label">Auto-Approve Threshold</label>
+                      <span id="cfgConfidenceVal" class="config-badge">95%</span>
+                    </div>
+                    <input type="range" id="cfgConfidence" min="0.5" max="0.99" step="0.01" value="0.95" class="config-range">
+                  </div>
+
+                  <div class="config-row">
+                    <label for="cfgPiiRedact" class="config-row-label">Redact PII (SSN, Cards, Medical)</label>
+                    <input type="checkbox" id="cfgPiiRedact" class="config-checkbox">
+                  </div>
+
+                  <div class="config-row">
+                    <label for="cfgMathCheck" class="config-row-label">Math &amp; Fraud Verification</label>
+                    <input type="checkbox" id="cfgMathCheck" class="config-checkbox" checked>
+                  </div>
+
+                  <div class="config-row">
+                    <label for="cfgTableOutput" class="config-row-label">Table Extraction Format</label>
+                    <select id="cfgTableOutput" class="config-select">
+                      <option value="cell_grid" selected>Cell Grid (Matrix)</option>
+                      <option value="markdown">Markdown</option>
+                      <option value="csv">CSV</option>
+                      <option value="json">Structured JSON</option>
+                    </select>
+                  </div>
+
+                  <div class="config-row">
+                    <label for="cfgStrictGrounding" class="config-row-label">Strict Bounding Box Grounding</label>
+                    <input type="checkbox" id="cfgStrictGrounding" class="config-checkbox" checked>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: auto; padding-top: 14px;">
+                <button class="btn-run-primary" id="btnSaveConfigAndRun" style="width: 100%; justify-content: center;">
+                  <span>Save Config &amp; Re-run</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LIVE MODEL PROMPT & DOCUMENT EXTRACTION PLAYGROUND -->
+      <div class="test-playground-card" id="livePromptTesterSection" style="margin-top: 24px;">
+        <div class="playground-header">
+          <div class="playground-title">
+            <span>🧪</span>
+            <span>Live Model Prompt &amp; Document Extraction Playground</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label style="font-size: 12px; color: #a1a1aa;">Provider:</label>
+            <select id="selTesterProvider" class="select-field" style="width: auto; padding: 6px 12px; font-size: 12px;">
+              <option value="gemini" selected>Google Gemini</option>
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic Claude</option>
+              <option value="groq">Groq LPU</option>
+              <option value="ollama">Local Ollama</option>
+            </select>
+            <span id="testerOutputBadge" class="telemetry-pill" style="color: #34d399; font-size: 11px;">STANDBY READY</span>
+          </div>
+        </div>
+
+        <div class="playground-presets-row">
+          <span style="font-size: 12px; color: #71717a; font-weight: 600;">Sample Templates:</span>
+          <button type="button" class="preset-prompt-chip active" data-prompt="Extract patient_name, dob, member_id, and copay_amount in strict JSON format with confidence scores.">
+            🧾 Patient Intake Scan
+          </button>
+          <button type="button" class="preset-prompt-chip" data-prompt="Extract invoice_number, vendor_name, line_items array (item, quantity, unit_price, line_total), and subtotal_usd.">
+            📊 Multi-Item Invoice
+          </button>
+          <button type="button" class="preset-prompt-chip" data-prompt="Parse bill_of_lading_number, shipper, consignee, declared_weight_kg, and customs_hs_code.">
+            📦 Logistics Bill of Lading
+          </button>
+          <button type="button" class="preset-prompt-chip" data-prompt="Extract employer_identification_number, wages_tips_other_comp, federal_income_tax_withheld, and social_security_wages.">
+            🪪 W-2 Tax Form
+          </button>
+        </div>
+
+        <div class="playground-split-grid">
+          <div>
+            <label class="form-label" style="display: block; margin-bottom: 8px;">Prompt / Schema Specification</label>
+            <textarea id="testerPromptInput" class="prompt-input-area" placeholder="Enter extraction instructions...">Extract patient_name, dob, member_id, and copay_amount in strict JSON format with confidence scores.</textarea>
+            <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+              <button type="button" class="btn-studio-primary" id="btnRunLiveKeyTest" style="padding: 10px 20px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Execute Live Test</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; margin-bottom: 8px;">Grounded JSON Response</label>
+            <pre id="testerOutputPreview" class="prompt-output-preview">{
+  "status": "ready",
+  "message": "Click 'Execute Live Test' to query the active provider model endpoint."
+}</pre>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- KEYBOARD SHORTCUTS MODAL -->
+    <div id="shortcutsModal" class="modal-overlay hidden">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="btnCloseShortcutsModal">✕</button>
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">⚡ Workspace Shortcuts</h3>
+        <p style="font-size: 12.5px; color: var(--text-muted);">Quick keyboard hotkeys for maximum productivity.</p>
+        
+        <div class="shortcuts-grid">
+          <div class="shortcut-row">
+            <span>Run Pipeline</span>
+            <span class="kbd-tag">⌘ + Enter</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Parse View</span>
+            <span class="kbd-tag">1</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Extract View</span>
+            <span class="kbd-tag">2</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Table Matrix</span>
+            <span class="kbd-tag">3</span>
+          </div>
+          <div class="shortcut-row">
+            <span>JSON View</span>
+            <span class="kbd-tag">4</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Search Fields</span>
+            <span class="kbd-tag">/</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Invert Colors</span>
+            <span class="kbd-tag">Z</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Reset Zoom</span>
+            <span class="kbd-tag">0</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Clear Focus</span>
+            <span class="kbd-tag">Esc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: BENCHMARKS -->
+    <section id="benchmarksView" class="view-section benchmarks-section" style="padding: var(--spacing-xl) 0;">
+      <div class="ui-eyebrow" style="color: var(--colors-accent-magenta); margin-bottom: 8px;">// OMNIDOCBENCH &amp; ACCURACY EVALUATIONS</div>
+      <h1 class="headline" style="font-size: 36px; margin-bottom: 8px;">OCR &amp; VLM Benchmark Comparisons</h1>
+      <p class="body-sm" style="color: #555555; max-width: 680px; margin-bottom: 24px;">
+        Evaluated on OmniDocBench and our 36-datatype benchmark suite (720 document test runs) comparing accuracy, table structure F1 scores, and pricing models.
+      </p>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Engine / Platform</th>
+              <th>Printed Text Acc</th>
+              <th>Handwriting Acc</th>
+              <th>Table Structure (F1)</th>
+              <th>Cost Model</th>
+              <th>Deploy Model</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><strong>Parsa.ai Unlimited-OCR (3B-MoE)</strong></td>
+              <td><strong>98.9%</strong></td>
+              <td><strong>96.4%</strong></td>
+              <td><strong>97.2%</strong></td>
+              <td><strong>$0 / call (GPU compute)</strong></td>
+              <td>Self-Hosted / Private Cloud</td>
+            </tr>
+            <tr>
+              <td>Hanji.dev AI Engine</td>
+              <td>95.8%</td>
+              <td>89.2%</td>
+              <td>92.5%</td>
+              <td>$4.00 / 1k credits</td>
+              <td>SaaS API Only</td>
+            </tr>
+            <tr>
+              <td>AWS Textract</td>
+              <td>95.2%</td>
+              <td>84.1%</td>
+              <td>88.5%</td>
+              <td>$1.50 – $15.00 / 1k pages</td>
+              <td>AWS SaaS Only</td>
+            </tr>
+            <tr>
+              <td>Azure Document Intelligence</td>
+              <td>96.1%</td>
+              <td>87.3%</td>
+              <td>91.0%</td>
+              <td>$1.50 – $10.00 / 1k pages</td>
+              <td>Azure SaaS Only</td>
+            </tr>
+            <tr>
+              <td>Google Document AI</td>
+              <td>96.4%</td>
+              <td>86.8%</td>
+              <td>90.4%</td>
+              <td>$1.50 – $30.00 / 1k pages</td>
+              <td>GCP SaaS Only</td>
+            </tr>
+            <tr>
+              <td>Tesseract OCR (v5.3)</td>
+              <td>88.1%</td>
+              <td>42.0%</td>
+              <td>51.2%</td>
+              <td>Open Source CPU</td>
+              <td>Self-Hosted</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="color-block-section-lilac" style="margin-top: 32px; padding: 24px;">
+        <div class="ui-eyebrow" style="margin-bottom: 8px;">// BENCHMARK METHODOLOGY</div>
+        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">100% Win Rate Verification</h3>
+        <p class="body-sm" style="color: #333333;">
+          Our benchmark runner (<code style="font-family: var(--font-mono); font-weight: 600;">tests/test_json_conversions.py</code>) executes 20 test instances per datatype across 36 application schemas, MIME binary types, and document domains. All 720 tests completed with 0 errors.
+        </p>
+      </div>
+    </section>
+
+    <!-- VIEW 5: ARCHITECTURE -->
+    <section id="architectureView" class="view-section" style="padding: var(--spacing-xl) 0;">
+      <div class="ui-eyebrow" style="color: var(--colors-accent-magenta); margin-bottom: 8px;">// 9-STAGE PIPELINE ARCHITECTURE</div>
+      <h1 class="headline" style="font-size: 36px; margin-bottom: 8px;">End-to-End 9-Stage Orchestration</h1>
+      <p class="subhead" style="margin-bottom: 24px; max-width: 720px;">
+        From raw upload to HMAC-SHA256 signed webhook delivery across 9 micro-orchestrated stages.
+      </p>
+
+      <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 01</div>
+          <h3>Secure Ingestion</h3>
+          <p>Magic-byte validation, ClamAV virus scanning, zip-bomb defense, and SHA-256 idempotency check.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 02</div>
+          <h3>Document Profiling</h3>
+          <p>Detects digital PDFs to skip OCR entirely, scores scan quality, and selects image enhancement filters.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 03</div>
+          <h3>Pre-Processing &amp; Layout</h3>
+          <p>De-skew (0.4° precision), adaptive binarization, denoise, and 5-class layout region segmentation.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 04</div>
+          <h3>Unlimited-OCR Router</h3>
+          <p>Runs Unlimited-OCR (3B-MoE VLM, gundam 640 crop) via SGLang RadixAttention prefix caching.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 05</div>
+          <h3>Normalization Engine</h3>
+          <p>Converts dates to ISO-8601, normalizes currency values, and cleans CJK/special characters.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 06</div>
+          <h3>3-Layer Extraction</h3>
+          <p>Layer 1 Rules $\rightarrow$ Layer 2 Small Model $\rightarrow$ Layer 3 LLM Escalation (OpenAI, Anthropic, Gemini, Ollama).</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 07</div>
+          <h3>Math &amp; Trust Scoring</h3>
+          <p>Arithmetic verification ($Subtotal + Tax = Total$), fraud signature checks, and composite TrustScore calculation.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 08</div>
+          <h3>Decision Engine</h3>
+          <p>Auto-approves high-confidence documents ($\ge 95\%$), routes low-confidence files to human review, or quarantines.</p>
+        </div>
+        <div class="feature-illustration-tile" style="background-color: #ffffff;">
+          <div class="ui-eyebrow">STAGE 09</div>
+          <h3>Signed Webhook Delivery</h3>
+          <p>HMAC-SHA256 signed webhooks, idempotent delivery guarantees, and ERP connectors for SAP &amp; Salesforce.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: PRICING -->
+    <section id="pricingView" class="view-section pricing-section" style="padding: var(--spacing-xl) 0;">
+      <div class="ui-eyebrow" style="text-align: center; margin-bottom: 8px;">// PREDICTABLE INFRASTRUCTURE PRICING</div>
+      <h1 class="headline" style="font-size: 36px; text-align: center; margin-bottom: 12px;">Deployment &amp; Pricing Models</h1>
+      <p class="body-sm" style="text-align: center; color: #555555; max-width: 600px; margin: 0 auto 32px;">
+        Zero per-call API surcharges. Pay only for your fixed GPU cluster compute or deploy open-source.
+      </p>
+
+      <div class="pricing-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1100px;">
+        <div class="pricing-card">
+          <div class="ui-eyebrow">// COMMUNITY OPEN SOURCE</div>
+          <div class="price">$0 <span>/ forever</span></div>
+          <p class="body-sm">Open-source core IDP platform for single-node development.</p>
+          <ul class="price-features">
+            <li>✓ Single CPU / GPU execution</li>
+            <li>✓ Unlimited-OCR HuggingFace integration</li>
+            <li>✓ Layer 1 Rules Engine</li>
+            <li>✓ JSON &amp; Markdown output</li>
+            <li>✓ Community Discord support</li>
+          </ul>
+          <button class="btn btn-secondary" data-target="playgroundView" style="width: 100%;">Try AI Studio</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="ui-eyebrow" style="color: var(--colors-accent-magenta);">// ENTERPRISE SELF-HOSTED</div>
+          <div class="price">Fixed Cluster</div>
+          <p class="body-sm">Deploy inside your private AWS/GCP/Azure Kubernetes VPC with zero data egress.</p>
+          <ul class="price-features">
+            <li>✓ Full 9-Stage Orchestration &amp; State Machine</li>
+            <li>✓ SGLang GPU Cluster Autoscaling Manifests</li>
+            <li>✓ 3-Layer Extraction &amp; LLM Cost Guardrails</li>
+            <li>✓ Custom Model Fine-Tuning Pipeline</li>
+            <li>✓ Dedicated SLA &amp; 24/7 Support</li>
+          </ul>
+          <button class="btn btn-primary" id="btnPricingBook" style="width: 100%;">Book Enterprise Demo</button>
+        </div>
+
+        <div class="pricing-card">
+          <div class="ui-eyebrow">// MANAGED CLOUD DEDICATED</div>
+          <div class="price">Dedicated Pod</div>
+          <p class="body-sm">Fully managed isolated cloud instance with guaranteed throughput.</p>
+          <ul class="price-features">
+            <li>✓ Dedicated Cloud Instance</li>
+            <li>✓ Managed Upgrades &amp; Security Patches</li>
+            <li>✓ SOC-2 Type II Compliant</li>
+            <li>✓ Custom LLM Key Integration</li>
+            <li>✓ 99.99% Uptime Guarantee</li>
+          </ul>
+          <button class="btn btn-secondary" data-target="apiKeysView" style="width: 100%;">Configure Keys</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Inverse Black Footer -->
+  <footer class="app-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="display-lg" style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">Parsa.ai</div>
+        <p class="body-sm" style="max-width: 320px;">
+          The Intelligent Document Processing platform built on Unlimited-OCR &amp; SGLang infrastructure.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#" data-target="playgroundView">Interactive AI Studio</a></li>
+          <li><a href="#" data-target="architectureView">9-Stage Pipeline</a></li>
+          <li><a href="#" data-target="benchmarksView">OmniDocBench</a></li>
+          <li><a href="#" data-target="pricingView">Pricing Models</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Research</h5>
+        <ul>
+          <li><a href="#">Unlimited-OCR Paper</a></li>
+          <li><a href="#">SGLang MoE Attention</a></li>
+          <li><a href="#">3-Layer Extraction</a></li>
+          <li><a href="#">TrustScore Auditor</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#" id="btnFooterDemo">Book a Demo</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">GitHub Repo</a></li>
+          <li><a href="#">Status Page</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Parsa.ai Inc. All rights reserved.</div>
+      <div>ENTERPRISE DOCUMENT INTELLIGENCE PLATFORM</div>
+    </div>
+  </footer>
+
+  <!-- Quick API Key Modal Overlay -->
+  <div id="quickApiKeyModal" class="modal-overlay hidden">
+    <div class="quick-key-dialog">
+      <button class="modal-close" id="btnCloseQuickKeyModal">✕</button>
+      <div class="ui-eyebrow" style="color: var(--accent-violet); margin-bottom: 4px;">// QUICK CONFIGURATION</div>
+      <h2 class="headline" style="font-size: 22px; margin-bottom: 6px;">Model Provider &amp; API Keys</h2>
+      <p class="body-sm" style="margin-bottom: 14px; font-size: 13px;">Select your primary LLM escalation engine and manage client-side credentials instantly.</p>
+
+      <div class="quick-key-grid" id="quickModalProviderDeck">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="config-llm-panel" style="margin-top: 12px; margin-bottom: 16px;">
+        <div class="config-key-row">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label class="config-row-label" id="quickModalKeyLabel" style="font-weight: 600;">API Key</label>
+            <button type="button" class="btn-text-action" id="btnQuickModalInsertSample">⚡ Insert Sample Key</button>
+          </div>
+          <div class="config-input-with-actions">
+            <input type="password" id="quickModalKeyInput" class="text-input config-key-input" placeholder="Paste your API key here...">
+            <button type="button" class="btn-action-outline btn-compact" id="btnToggleQuickModalKey">Show</button>
+          </div>
+        </div>
+
+        <div class="config-row" style="margin-top: 10px;">
+          <label class="config-row-label">Model Endpoint</label>
+          <select id="quickModalModelSelect" class="config-select" style="font-family: var(--font-mono); font-size: 11.5px; flex: 1;">
+          </select>
+        </div>
+
+        <div id="quickModalUrlRow" class="config-row" style="display: none; margin-top: 6px;">
+          <label class="config-row-label">Local Host URL</label>
+          <input type="text" id="quickModalUrlInput" class="text-input" style="flex: 1; font-family: var(--font-mono); font-size: 11.5px;" value="http://localhost:11434/v1">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <button type="button" class="btn-action-outline" id="btnOpenFullStudioFromModal">
+          <span>Advanced Studio ↗</span>
+        </button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn-action-outline" id="btnTestQuickModalKey">
+            <span>🧪 Test Key</span>
+          </button>
+          <button type="button" class="btn-run-primary" id="btnSaveQuickModalKey">
+            <span>Save &amp; Apply</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Demo Modal -->
+  <div id="demoModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <button class="modal-close" id="btnCloseModal">✕</button>
+      <div class="ui-eyebrow" style="color: var(--colors-accent-magenta); margin-bottom: 6px;">// ENTERPRISE DEMO</div>
+      <h2 class="headline" style="font-size: 28px; margin-bottom: 8px;">Book an Enterprise Demo</h2>
+      <p class="body-sm" style="margin-bottom: 16px;">Schedule a 30-minute deep dive with our document intelligence architects.</p>
+      
+      <form id="demoForm" onsubmit="event.preventDefault(); alert('Thank you! Our engineering team will contact you within 2 hours.'); document.getElementById('demoModal').classList.add('hidden');">
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" required placeholder="name@company.com" class="text-input">
+        </div>
+        <div class="form-group">
+          <label>Monthly Document Volume</label>
+          <select class="form-select">
+            <option>10,000 – 100,000 pages / month</option>
+            <option>100,000 – 1,000,000 pages / month</option>
+            <option>1,000,000+ pages / month</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Primary Use Case</label>
+          <input type="text" placeholder="Invoices, Medical Intake, Contracts..." class="text-input">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 18px;">Confirm Demo Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js?v=1.0.3"></script>
+</body>
+</html>

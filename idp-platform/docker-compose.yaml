@@ -1,0 +1,63 @@
+---
+# Docker Compose for local development
+# Runs the API Gateway + supporting services
+# OCR engine requires GPU — run separately on GPU-enabled machine
+
+version: "3.9"
+
+services:
+  # ── API Gateway ──────────────────────────────────────────────
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    command: >
+      uvicorn services.api_gateway.main:app
+      --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  # ── Redis (rate limiting, caching, job queue) ────────────────
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  # ── PostgreSQL (metadata store, job records) ─────────────────
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: idp_platform
+      POSTGRES_USER: idp
+      POSTGRES_PASSWORD: idp_dev_password
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  # ── MinIO (S3-compatible object store for documents) ─────────
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"  # Console
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+
+volumes:
+  redis-data:
+  pg-data:
+  minio-data:

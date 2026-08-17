@@ -1,0 +1,215 @@
+---
+# Unlimited-OCR SGLang Server Deployment
+# This runs the Unlimited-OCR model as a persistent inference
+# service on GPU nodes, exposed via the OpenAI-compatible API.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unlimited-ocr-sglang
+  namespace: idp-platform
+  labels:
+    app: unlimited-ocr
+    component: ocr-engine
+    tier: gpu
+spec:
+  replicas: 1  # Scale based on queue depth
+  selector:
+    matchLabels:
+      app: unlimited-ocr
+  template:
+    metadata:
+      labels:
+        app: unlimited-ocr
+        component: ocr-engine
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10000"
+    spec:
+      # GPU node affinity
+      nodeSelector:
+        gpu-type: nvidia-h100  # or nvidia-a100
+      tolerations:
+        - key: "nvidia.com/gpu"
+          operator: "Exists"
+          effect: "NoSchedule"
+
+      containers:
+        - name: sglang-server
+          image: vllm/vllm-openai:unlimited-ocr
+          # Alternative: build custom image with SGLang
+          # image: your-registry/unlimited-ocr-sglang:latest
+
+          command:
+            - python
+            - -m
+            - sglang.launch_server
+          args:
+            - --model
+            - baidu/Unlimited-OCR
+            - --served-model-name
+            - Unlimited-OCR
+            - --attention-backend
+            - fa3
+            - --page-size
+            - "1"
+            - --mem-fraction-static
+            - "0.8"
+            - --context-length
+            - "32768"
+            - --enable-custom-logit-processor
+            - --disable-overlap-schedule
+            - --skip-server-warmup
+            - --host
+            - "0.0.0.0"
+            - --port
+            - "10000"
+
+          ports:
+            - containerPort: 10000
+              name: http
+              protocol: TCP
+
+          resources:
+            requests:
+              cpu: "4"
+              memory: "32Gi"
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: "8"
+              memory: "64Gi"
+              nvidia.com/gpu: "1"
+
+          # Health checks
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 10000
+            initialDelaySeconds: 120   # Model loading takes time
+            periodSeconds: 10
+            failureThreshold: 30       # Up to 5 minutes to load
+            timeoutSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 10000
+            periodSeconds: 10
+            timeoutSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 10000
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+
+          env:
+            - name: CUDA_VISIBLE_DEVICES
+              value: "0"
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: huggingface-token
+                  key: token
+                  optional: true
+
+          # Model cache volume (avoid re-downloading on restart)
+          volumeMounts:
+            - name: model-cache
+              mountPath: /root/.cache/huggingface
+            - name: shm
+              mountPath: /dev/shm
+
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: unlimited-ocr-model-cache
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Gi  # Shared memory for PyTorch
+
+      # Don't evict GPU pods easily
+      terminationGracePeriodSeconds: 60
+
+---
+# Service — internal access to SGLang server
+apiVersion: v1
+kind: Service
+metadata:
+  name: unlimited-ocr-svc
+  namespace: idp-platform
+  labels:
+    app: unlimited-ocr
+spec:
+  selector:
+    app: unlimited-ocr
+  ports:
+    - port: 10000
+      targetPort: 10000
+      protocol: TCP
+      name: http
+  type: ClusterIP
+
+---
+# PVC for model cache (avoid re-downloading ~6GB model each restart)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: unlimited-ocr-model-cache
+  namespace: idp-platform
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: fast-ssd  # Use SSD for faster model loading
+
+---
+# HPA — GPU-aware autoscaling (requires custom metrics)
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: unlimited-ocr-hpa
+  namespace: idp-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: unlimited-ocr-sglang
+  minReplicas: 1
+  maxReplicas: 4  # Max GPU pods
+  metrics:
+    # Scale based on OCR job queue depth (custom metric)
+    - type: External
+      external:
+        metric:
+          name: ocr_queue_depth
+        target:
+          type: AverageValue
+          averageValue: "10"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 120  # Wait before scaling up
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 300  # Add 1 GPU pod per 5 min
+    scaleDown:
+      stabilizationWindowSeconds: 600  # Wait 10 min before scaling down
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 600
+
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: idp-platform
+  labels:
+    project: idp
