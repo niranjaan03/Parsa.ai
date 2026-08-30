@@ -628,12 +628,116 @@ console.log(await res.json());`
       });
     }
 
-    function escapeHtml(str) {
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-  })();
+      function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
 
-})();
+      // ─── SUBMIT SEARCH & LAUNCH AI STUDIO ───
+      function submitSearchToStudio(queryText = '') {
+        const query = (queryText || (heroQueryInput ? heroQueryInput.value : '')).trim();
+        
+        // Switch to AI Studio
+        if (typeof window.parsaShowView === 'function') {
+          window.parsaShowView('studio');
+        }
+
+        // Forward query to AI Studio tester prompt or search filter
+        setTimeout(() => {
+          const testerPromptInput = document.getElementById('testerPromptInput');
+          const searchChunksInput = document.getElementById('searchChunksInput');
+
+          if (query) {
+            if (testerPromptInput) {
+              testerPromptInput.value = query;
+            }
+            if (searchChunksInput) {
+              searchChunksInput.value = query;
+              // Trigger search filter
+              searchChunksInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+
+            // If user attached custom files, notify
+            if (attachments.length > 0) {
+              const toastMsg = document.createElement('div');
+              toastMsg.className = 'key-vault-toast';
+              toastMsg.textContent = `⚡ Attached ${attachments.length} document context item(s). Running Unlimited-OCR 3B-MoE...`;
+              document.body.appendChild(toastMsg);
+              setTimeout(() => toastMsg.classList.add('visible'), 20);
+              setTimeout(() => {
+                toastMsg.classList.remove('visible');
+                setTimeout(() => toastMsg.remove(), 300);
+              }, 3200);
+            }
+          }
+        }, 120);
+      }
+
+      const heroSearchForm = document.getElementById('heroSearchForm');
+      if (heroSearchForm) {
+        heroSearchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          submitSearchToStudio();
+        });
+      }
+
+      const btnHeroSearchSubmit = document.getElementById('btnHeroSearchSubmit');
+      if (btnHeroSearchSubmit) {
+        btnHeroSearchSubmit.addEventListener('click', (e) => {
+          e.preventDefault();
+          submitSearchToStudio();
+        });
+      }
+
+      // ─── HERO PROMPT CHIPS INTERACTION ───
+      document.querySelectorAll('.hero-prompt-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const preset = chip.getAttribute('data-preset');
+          const query = chip.getAttribute('data-query');
+
+          // Load corresponding preset in app.js if available
+          if (preset && typeof window.parsaLoadPreset === 'function') {
+            window.parsaLoadPreset(preset);
+          }
+
+          submitSearchToStudio(query);
+        });
+      });
+
+      // ─── UPGRADE CREDITS MODAL ───
+      const upgradeModal = document.getElementById('upgradeCreditsModal');
+      const btnHeroUpgradeCredits = document.getElementById('btnHeroUpgradeCredits');
+      const btnCloseUpgradeModal = document.getElementById('btnCloseUpgradeModal');
+      const btnUpgradeOpenDemo = document.getElementById('btnUpgradeOpenDemo');
+
+      if (btnHeroUpgradeCredits && upgradeModal) {
+        btnHeroUpgradeCredits.addEventListener('click', () => {
+          upgradeModal.classList.remove('hidden');
+        });
+      }
+
+      if (btnCloseUpgradeModal && upgradeModal) {
+        btnCloseUpgradeModal.addEventListener('click', () => {
+          upgradeModal.classList.add('hidden');
+        });
+      }
+
+      if (btnUpgradeOpenDemo && upgradeModal) {
+        btnUpgradeOpenDemo.addEventListener('click', () => {
+          upgradeModal.classList.add('hidden');
+          if (typeof window.openParsaDemoModal === 'function') {
+            window.openParsaDemoModal();
+          }
+        });
+      }
+
+      if (upgradeModal) {
+        upgradeModal.addEventListener('click', (e) => {
+          if (e.target === upgradeModal) upgradeModal.classList.add('hidden');
+        });
+      }
+    })();
+
+  })();
 
 
 

@@ -13,36 +13,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/homepage.css?v=3.5">
-  <link rel="stylesheet" href="/static/style.css?v=3.5">
-  <!-- Inline styles handled by homepage.css design system -->
+  <link rel="stylesheet" href="/static/homepage.css?v=4.0">
+  <link rel="stylesheet" href="/static/style.css?v=4.0">
 </head>
 <body>
 
   <!-- ═══════════════ NAVIGATION ═══════════════ -->
-  <header class="hero-nav">
+  <header class="hero-nav" id="mainHeroNav">
     <div class="hero-nav-inner">
       <!-- Logo -->
-      <a href="/" class="hero-logo">Parsa.ai</a>
+      <a href="/" class="hero-logo" data-view="home">
+        <span class="hero-logo-symbol">
+          <span class="logo-dot-1"></span>
+          <span class="logo-dot-2"></span>
+          <span class="logo-dot-3"></span>
+        </span>
+        <span class="hero-logo-text">Parsa<span class="hero-logo-accent">.ai</span></span>
+      </a>
 
       <!-- Menu Items -->
-      <div class="hero-menu">
+      <nav class="hero-menu" aria-label="Main Navigation">
         <a href="#product" class="hero-menu-item" data-view="home">Product</a>
         <a href="#pipeline" class="hero-menu-item" data-view="home">Architecture</a>
         <a href="#benchmarks" class="hero-menu-item" data-view="home">Benchmarks</a>
         <a href="#apikeys" class="hero-menu-item" data-view="apikeys" id="heroMenuApiKey">API Keys</a>
         <a href="#pricing" class="hero-menu-item" data-view="home">Pricing</a>
-        <a href="#demo" class="hero-menu-item" data-view="home">Contact</a>
-      </div>
+        <a href="#faq" class="hero-menu-item" data-view="home">FAQ</a>
+      </nav>
 
       <!-- Right Side Buttons -->
       <div class="hero-nav-actions">
-        <a href="#apikeys" class="nav-api-key-pill" id="btnHeroNavApiKey" data-view="apikeys" title="Active LLM API Key &amp; Escalation Engine (Press ⌥K)" style="text-decoration: none;">
+        <a href="#apikeys" class="nav-api-key-pill" id="btnHeroNavApiKey" data-view="apikeys" title="Active LLM API Key &amp; Escalation Engine (Press ⌥K)">
           <span class="key-status-dot" id="heroNavKeyStatusDot"></span>
           <span id="heroNavActiveKeyText">✨ Gemini 2.0</span>
           <span class="key-caret">▾</span>
         </a>
-        <button type="button" class="btn-workspace-nav" data-view="studio">AI Studio</button>
+        <button type="button" class="btn-workspace-nav" data-view="studio">
+          <span>AI Studio</span>
+          <span class="btn-nav-sparkle">⚡</span>
+        </button>
       </div>
     </div>
   </header>
@@ -71,7 +80,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#fde047"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           <span>New</span>
         </div>
-        <span class="hero-badge-text">Discover what's possible</span>
+        <span class="hero-badge-text">Unlimited-OCR 3B-MoE VLM • 100% Win Rate</span>
       </div>
 
       <!-- Main Headline -->
@@ -81,7 +90,7 @@
 
       <!-- Subtitle -->
       <p class="hero-subtitle">
-        Upload your information and get powerful insights right away. Work smarter and achieve goals effortlessly.
+        Extract text, multi-column tables, handwriting, and typed schemas with pixel-grounded citations. Self-hosted with zero per-call cost.
       </p>
 
       <!-- Search Input Box -->
@@ -94,11 +103,11 @@
         <div class="search-box-top">
           <div style="display: flex; align-items: center; gap: 8px;">
             <span>60/450 credits</span>
-            <button type="button" class="btn-upgrade">Upgrade</button>
+            <button type="button" class="btn-upgrade" id="btnHeroUpgradeCredits">Upgrade</button>
           </div>
           <div style="display: flex; align-items: center; gap: 6px; opacity: 0.9;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z"/></svg>
-            <span>Powered by Gemini</span>
+            <span>Powered by Gemini &amp; Unlimited-OCR</span>
           </div>
         </div>
 
@@ -106,7 +115,7 @@
         <div class="attachment-chips-container" id="heroAttachmentChips" style="display: none;"></div>
 
         <!-- Main Input Area -->
-        <form onsubmit="event.preventDefault();" class="search-box-main">
+        <form onsubmit="event.preventDefault();" class="search-box-main" id="heroSearchForm">
           <input
             type="text"
             id="heroQueryInput"
@@ -114,7 +123,7 @@
             class="search-box-input"
             oninput="document.getElementById('charCountEl').textContent = this.value.length.toLocaleString() + '/3,000';"
           />
-          <button type="submit" aria-label="Submit search" class="btn-search-submit">
+          <button type="submit" aria-label="Submit search" class="btn-search-submit" id="btnHeroSearchSubmit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
           </button>
         </form>
@@ -123,9 +132,9 @@
         <div class="search-box-bottom">
           <div class="action-btn-group" style="position: relative;">
             <!-- Plus (+) Button -->
-            <button type="button" class="action-btn action-btn-plus" id="btnPlusMenu">
+            <button type="button" class="action-btn action-btn-plus" id="btnPlusMenu" title="Attach Files, Folders or Workspace">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              <span>Plus</span>
+              <span>Attach</span>
             </button>
 
             <!-- Popover Dropdown Menu -->
@@ -163,11 +172,22 @@
                   </div>
                   <div class="plus-menu-desc">Use current workspace project files</div>
                 </div>
+              </button>
             </div>
           </div>
 
           <div class="char-counter" id="charCountEl">0/3,000</div>
         </div>
+      </div>
+
+      <!-- Quick Prompt Suggestions Strip -->
+      <div class="hero-suggestions-strip">
+        <span class="suggestions-label">Try sample extraction:</span>
+        <button type="button" class="hero-prompt-chip" data-preset="intake" data-query="Extract patient_name, dob, primary_carrier, member_id, and active_medications">🏥 Patient Intake</button>
+        <button type="button" class="hero-prompt-chip" data-preset="invoice" data-query="Extract vendor_name, invoice_number, line_items, tax, and total with math check">🧾 Commercial Invoice</button>
+        <button type="button" class="hero-prompt-chip" data-preset="medicare" data-query="Extract laboratory services table, CPT codes, estimated costs, and denial reasons">📋 Medicare Notice</button>
+        <button type="button" class="hero-prompt-chip" data-preset="handwritten" data-query="Transcribe doctor handwriting, prescription drugs, dosage, and prescriber signature">💊 Rx Prescription</button>
+        <button type="button" class="hero-prompt-chip" data-preset="w2tax" data-query="Parse Box 1 wages, Box 2 federal tax withheld, employer EIN, and employee SSN">📑 W-2 Tax Form</button>
       </div>
 
       <!-- Trust Strip embedded in Video Hero (Glassmorphism) -->
@@ -1828,8 +1848,36 @@
   </div>
 
 
-  <script src="/static/homepage.js"></script>
-  <script src="/static/app.js"></script>
+  <!-- Upgrade Credits Modal Overlay -->
+  <div id="upgradeCreditsModal" class="modal-overlay hidden">
+    <div class="modal-box" style="max-width: 560px;">
+      <button class="modal-close" id="btnCloseUpgradeModal" type="button" aria-label="Close modal">✕</button>
+
+      <div class="modal-header">
+        <span class="modal-eyebrow" style="color: var(--accent-cyan);">// USAGE &amp; CREDITS</span>
+        <h2 class="modal-title">Upgrade Processing Capacity</h2>
+        <p class="modal-desc">You have consumed 60 of 450 free tier pages this month. Choose self-hosted deployment for $0 per-call cost or scalable dedicated cloud.</p>
+      </div>
+
+      <div class="upgrade-tiers-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+        <div class="upgrade-tier-card" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-default); border-radius: 12px; padding: 18px; display: flex; flex-direction: column;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--accent-emerald); text-transform: uppercase; letter-spacing: 0.05em;">Self-Hosted (OSS)</div>
+          <div style="font-size: 24px; font-weight: 800; color: #fff; margin: 6px 0;">$0 <span style="font-size: 12px; font-weight: 500; color: var(--text-muted);">/ call</span></div>
+          <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.45; margin: 0 0 16px; flex: 1;">Run on your private GPU cluster with zero per-call cost and zero external data egress.</p>
+          <a href="#pipeline" class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="document.getElementById('upgradeCreditsModal').classList.add('hidden');">View Pipeline</a>
+        </div>
+        <div class="upgrade-tier-card" style="background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(56,189,248,0.08)); border: 1px solid rgba(139,92,246,0.4); border-radius: 12px; padding: 18px; display: flex; flex-direction: column;">
+          <div style="font-size: 11px; font-weight: 700; color: #c4b5fd; text-transform: uppercase; letter-spacing: 0.05em;">Enterprise Cloud</div>
+          <div style="font-size: 24px; font-weight: 800; color: #fff; margin: 6px 0;">Dedicated <span style="font-size: 12px; font-weight: 500; color: var(--text-muted);">/ SLA</span></div>
+          <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.45; margin: 0 0 16px; flex: 1;">Managed high-throughput cluster with SOC-2 compliance, custom models, and 24/7 SLA.</p>
+          <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;" id="btnUpgradeOpenDemo">Book Demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/homepage.js?v=4.0"></script>
+  <script src="/static/app.js?v=4.0"></script>
   <script>
     /* ═══ VIEW SWITCHING: Homepage ↔ Studio ═══ */
     (function() {
